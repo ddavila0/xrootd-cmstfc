@@ -11,9 +11,17 @@ URL: https://github.com/bbockelm/xrootd-cmstfc
 # git-archive master | gzip -7 > ~/rpmbuild/SOURCES/xrootd-lcmaps.tar.gz
 Source0: %{name}.tar.gz
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
-BuildRequires: xrootd-libs-devel xerces-c-devel pcre-devel
+
+%define xrootd_current 4.0.0
+%define xrootd_next 5.0.0
+
+BuildRequires: xrootd-libs-devel >= 1:%{xrootd_current}-1
+BuildRequires: xrootd-libs-devel <= 1:%{xrootd_next}-1
+BuildRequires: xerces-c-devel pcre-devel
 BuildRequires: cmake
-Requires: /usr/bin/xrootd pcre xerces-c
+
+Requires: xrootd-server >= 1:%{xrootd_current}-1
+Requires: pcre xerces-c <= 1:%{xrootd_next}-1
 
 %package devel
 Summary: Development headers and libraries for Xrootd CMSTFC plugin
